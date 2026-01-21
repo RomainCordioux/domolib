@@ -4,11 +4,15 @@ on:
   schedule:
     # S'exécute tous les lundis à 00:00 UTC
     - cron: '0 0 * * 1'
-  workflow_dispatch: # Permet de le lancer manuellement pour tester
+  workflow_dispatch: # Permet de le lancer manuellement
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Ajout des permissions explicites pour éviter l'erreur 403
+    permissions:
+      contents: write
+    
     steps:
       - name: Checkout du code
         uses: actions/checkout@v3
@@ -29,8 +33,13 @@ jobs:
 
       - name: Commit et Push des changements
         run: |
-          git config --global user.name 'Domolib Bot'
-          git config --global user.email 'bot@domolib.com'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add products_db.json
-          git commit -m "Auto-update: Mise à jour du catalogue produits" || echo "Pas de changement"
-          git push
+          # On vérifie s'il y a des changements avant de commit pour éviter une erreur
+          if git diff --cached --quiet; then
+            echo "Aucun changement détecté"
+          else
+            git commit -m "Auto-update: Mise à jour du catalogue produits"
+            git push
+          fi
