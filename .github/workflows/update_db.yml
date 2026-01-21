@@ -38,8 +38,8 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # On récupère les éventuelles modifications distantes pour éviter l'erreur "rejected"
-          git pull --rebase origin main
+          # On s'assure d'être bien synchronisé, même si les historiques divergent au début
+          git pull origin main --rebase --allow-unrelated-histories
           
           git add products_db.json
           
@@ -48,5 +48,6 @@ jobs:
             echo "Aucun changement détecté"
           else
             git commit -m "Auto-update: Mise à jour du catalogue produits"
+            # On utilise -u pour lier la branche et s'assurer que le push passe
             git push origin main
           fi
