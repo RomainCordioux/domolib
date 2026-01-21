@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout du code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Récupère tout l'historique pour faciliter la fusion
 
       - name: Installation Node.js
         uses: actions/setup-node@v3
@@ -35,11 +37,16 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # On récupère les éventuelles modifications distantes pour éviter l'erreur "rejected"
+          git pull --rebase origin main
+          
           git add products_db.json
-          # On vérifie s'il y a des changements avant de commit pour éviter une erreur
+          
+          # On vérifie s'il y a des changements avant de commit
           if git diff --cached --quiet; then
             echo "Aucun changement détecté"
           else
             git commit -m "Auto-update: Mise à jour du catalogue produits"
-            git push
+            git push origin main
           fi
