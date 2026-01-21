@@ -33,26 +33,41 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
 
-      - name: Commit et Push des changements
+      - name: Commit et Push des changements (avec retry)
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 1. On prépare le changement localement
+          # Préparation locale
           git add products_db.json
           
-          # 2. On vérifie s'il y a des changements avant de continuer
           if git diff --cached --quiet; then
-            echo "Aucun changement détecté"
+            echo "Aucun changement détecté dans products_db.json"
             exit 0
           fi
 
-          # 3. On commit localement
           git commit -m "Auto-update: Mise à jour du catalogue produits"
           
-          # 4. Stratégie de synchronisation agressive juste avant le push
-          # On récupère les changements distants et on place notre commit par-dessus
-          git pull --rebase origin main --allow-unrelated-histories
-          
-          # 5. On pousse enfin vers le dépôt distant
-          git push origin main
+          # Boucle de retry pour gérer les conflits de push simultanés
+          success=false
+          for i in {1..5}; do
+            echo "Tentative de push $i/5..."
+            
+            # On pull les dernières modifs avec rebase
+            if git pull --rebase origin main --allow-unrelated-histories; then
+              # Si le pull a marché, on tente le push
+              if git push origin main; then
+                echo "✅ Mise à jour réussie !"
+                success=true
+                break
+              fi
+            fi
+            
+            echo "⚠️ Échec de la synchronisation, nouvelle tentative dans 5 secondes..."
+            sleep 5
+          done
+
+          if [ "$success" = false ]; then
+            echo "❌ Échec critique : Impossible de pousser les changements après 5 tentatives."
+            exit 1
+          fi
