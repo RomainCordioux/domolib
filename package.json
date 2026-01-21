@@ -1,1 +1,14 @@
-
+{
+  "name": "domolib-aggregator",
+  "version": "1.0.0",
+  "description": "Agrégateur de produits domotiques pour DOMOLIB",
+  "main": "aggregate.js",
+  "scripts": {
+    "start": "node aggregate.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "author": "Domolib",
+  "license": "MIT"
+}
