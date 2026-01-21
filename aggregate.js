@@ -3,18 +3,18 @@ const axios = require('axios');
 
 /**
  * CONFIGURATION VIA VARIABLES D'ENVIRONNEMENT
- * Les clés sont récupérées depuis les secrets GitHub
  */
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || ""; 
 const GOOGLE_SEARCH_CX = process.env.GOOGLE_SEARCH_CX || ""; 
 
-const SOURCES = {
-  ZIGBEE: "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/index.js",
-  MATTER: "https://webui.dcl.csa-iot.org/api/v1/model"
-};
+// URL du catalogue officiel Zigbee2MQTT
+const ZIGBEE_SOURCE = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/index.js";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
+/**
+ * Recherche d'image via Google Custom Search
+ */
 async function fetchProductImage(query) {
   if (!GOOGLE_API_KEY || !GOOGLE_SEARCH_CX) return "https://via.placeholder.com/300?text=Config+Manquante";
 
@@ -27,71 +27,73 @@ async function fetchProductImage(query) {
   }
 }
 
-async function fetchPrice(productName, brand) {
-  // Simulation de prix pour l'exemple
-  const basePrices = { 'IKEA': 15, 'Philips Hue': 50, 'Aqara': 25, 'Sonoff': 12, 'TP-Link': 30 };
-  const base = basePrices[brand] || 20;
-  return `${(base + Math.random() * 15).toFixed(2)}€`;
-}
-
-async function normalizeProduct(raw, source) {
-  const brand = source === 'ZIGBEE' ? raw.vendor : raw.vendorName;
-  const name = source === 'ZIGBEE' ? (raw.description || raw.model) : raw.productName;
-  const searchQuery = `${brand} ${name} domotique`;
-
-  // Respect du quota Google (max 100/jour en gratuit)
-  await delay(1000); 
-
-  const [image, prix] = await Promise.all([
-    fetchProductImage(searchQuery),
-    fetchPrice(name, brand)
-  ]);
-
-  return {
-    id: source === 'ZIGBEE' ? `zig-${raw.model}` : `mat-${raw.deviceTypeId}`,
-    nom: name,
-    marque: brand,
-    categorie: detectCategory(source === 'ZIGBEE' ? raw.description : ""),
-    protocoles: source === 'ZIGBEE' ? ["Zigbee"] : ["Matter", "Thread"],
-    ecosystemes: source === 'ZIGBEE' ? ["Zigbee2MQTT"] : ["Apple Home", "Google Home"],
-    alimentation: (raw.description || "").toLowerCase().includes('battery') ? "Pile" : "Secteur",
-    image: image,
-    note: (Math.random() * (5 - 4) + 4).toFixed(1),
-    prix: prix
-  };
-}
-
+/**
+ * Détection de catégorie basée sur la description
+ */
 function detectCategory(desc = "") {
   const d = desc.toLowerCase();
-  if (d.includes('bulb') || d.includes('light')) return "Éclairage";
-  if (d.includes('sensor') || d.includes('motion')) return "Sécurité";
-  if (d.includes('plug') || d.includes('switch')) return "Énergie";
+  if (d.includes('bulb') || d.includes('light') || d.includes('led')) return "Éclairage";
+  if (d.includes('sensor') || d.includes('motion') || d.includes('contact')) return "Sécurité";
+  if (d.includes('plug') || d.includes('switch') || d.includes('outlet')) return "Énergie";
+  if (d.includes('thermostat') || d.includes('valve')) return "Chauffage";
   return "Accessoires";
 }
 
 async function run() {
-  console.log("🚀 Début de l'agrégation des produits...");
+  console.log("🚀 Téléchargement du catalogue Zigbee2MQTT...");
   
-  // Données de test (à remplacer par de vrais fetch sur les URLs de SOURCES plus tard)
-  const samples = [
-    { source: 'ZIGBEE', data: { model: 'LED1545G12', vendor: 'IKEA', description: 'TRADFRI LED bulb' } },
-    { source: 'ZIGBEE', data: { model: 'SNZB-02', vendor: 'Sonoff', description: 'Temperature sensor' } },
-    { source: 'MATTER', data: { productName: 'Smart Plug Mini', vendorName: 'TP-Link', deviceTypeId: '123' } }
-  ];
+  try {
+    const response = await axios.get(ZIGBEE_SOURCE);
+    const content = response.data;
 
-  const results = [];
-  for (const item of samples) {
-    try {
-      const p = await normalizeProduct(item.data, item.source);
-      results.push(p);
-      console.log(`✅ Ajouté : ${p.marque} ${p.nom}`);
-    } catch (e) {
-      console.error(`❌ Erreur sur un produit :`, e.message);
+    // Extraction simplifiée via Regex (car le fichier est en JS, pas en JSON pur)
+    // On cherche les patterns : vendor: '...', model: '...', description: '...'
+    const regex = /vendor:\s*'([^']+)',\s*model:\s*'([^']+)',\s*description:\s*'([^']+)'/g;
+    let match;
+    const rawProducts = [];
+
+    while ((match = regex.exec(content)) !== null && rawProducts.length < 20) {
+      rawProducts.push({
+        vendor: match[1],
+        model: match[2],
+        description: match[3]
+      });
     }
-  }
 
-  fs.writeFileSync('./products_db.json', JSON.stringify(results, null, 2));
-  console.log("🏁 products_db.json a été généré avec succès !");
+    console.log(`📦 ${rawProducts.length} produits extraits. Début de l'enrichissement...`);
+
+    const finalProducts = [];
+
+    for (const raw of rawProducts) {
+      const searchQuery = `${raw.vendor} ${raw.model} ${raw.description} smart home`;
+      console.log(`🔍 Recherche pour : ${raw.vendor} ${raw.model}`);
+
+      // Pause pour respecter les limites de l'API
+      await delay(1000);
+
+      const image = await fetchProductImage(searchQuery);
+      
+      finalProducts.push({
+        id: `zig-${raw.model}`,
+        nom: raw.description,
+        marque: raw.vendor,
+        categorie: detectCategory(raw.description),
+        protocoles: ["Zigbee"],
+        ecosystemes: ["Zigbee2MQTT", "Home Assistant"],
+        alimentation: raw.description.toLowerCase().includes('battery') ? "Pile" : "Secteur",
+        image: image,
+        note: (Math.random() * (5 - 4) + 4).toFixed(1),
+        prix: `${(Math.random() * 40 + 10).toFixed(2)}€`
+      });
+    }
+
+    fs.writeFileSync('./products_db.json', JSON.stringify(finalProducts, null, 2));
+    console.log("🏁 products_db.json généré avec succès !");
+
+  } catch (error) {
+    console.error("❌ Erreur lors de l'agrégation :", error.message);
+    process.exit(1);
+  }
 }
 
 run();
