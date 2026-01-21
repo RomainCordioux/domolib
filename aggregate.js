@@ -7,8 +7,8 @@ const axios = require('axios');
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || ""; 
 const GOOGLE_SEARCH_CX = process.env.GOOGLE_SEARCH_CX || ""; 
 
-// URL du catalogue officiel Zigbee2MQTT
-const ZIGBEE_SOURCE = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/index.js";
+// NOUVELLE URL CORRIGÉE (le fichier a été déplacé dans 'definitions')
+const ZIGBEE_SOURCE = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/definitions/index.js";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -43,12 +43,14 @@ async function run() {
   console.log("🚀 Téléchargement du catalogue Zigbee2MQTT...");
   
   try {
-    const response = await axios.get(ZIGBEE_SOURCE);
+    // On ajoute un User-Agent pour éviter d'être bloqué par GitHub
+    const response = await axios.get(ZIGBEE_SOURCE, {
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
     const content = response.data;
 
-    // Extraction simplifiée via Regex (car le fichier est en JS, pas en JSON pur)
-    // On cherche les patterns : vendor: '...', model: '...', description: '...'
-    const regex = /vendor:\s*'([^']+)',\s*model:\s*'([^']+)',\s*description:\s*'([^']+)'/g;
+    // Regex améliorée pour capturer les produits même avec des espaces ou des guillemets différents
+    const regex = /vendor:\s*['"]([^'"]+)['"],\s*model:\s*['"]([^'"]+)['"],\s*description:\s*['"]([^'"]+)['"]/g;
     let match;
     const rawProducts = [];
 
@@ -60,6 +62,10 @@ async function run() {
       });
     }
 
+    if (rawProducts.length === 0) {
+      throw new Error("Aucun produit n'a pu être extrait. La structure du fichier source a peut-être changé.");
+    }
+
     console.log(`📦 ${rawProducts.length} produits extraits. Début de l'enrichissement...`);
 
     const finalProducts = [];
@@ -68,7 +74,7 @@ async function run() {
       const searchQuery = `${raw.vendor} ${raw.model} ${raw.description} smart home`;
       console.log(`🔍 Recherche pour : ${raw.vendor} ${raw.model}`);
 
-      // Pause pour respecter les limites de l'API
+      // Pause pour respecter les limites de l'API (1 seconde entre chaque appel)
       await delay(1000);
 
       const image = await fetchProductImage(searchQuery);
