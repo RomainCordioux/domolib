@@ -1,0 +1,52 @@
+[
+  {
+    "id": "zig-LED1545G12",
+    "nom": "TRADFRI LED bulb",
+    "marque": "IKEA",
+    "categorie": "Éclairage",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.2",
+    "prix": "27.51€"
+  },
+  {
+    "id": "zig-SNZB-02",
+    "nom": "Temperature sensor",
+    "marque": "Sonoff",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.2",
+    "prix": "18.79€"
+  },
+  {
+    "id": "mat-123",
+    "nom": "Smart Plug Mini",
+    "marque": "TP-Link",
+    "categorie": "Accessoires",
+    "protocoles": [
+      "Matter",
+      "Thread"
+    ],
+    "ecosystemes": [
+      "Apple Home",
+      "Google Home"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.4",
+    "prix": "43.86€"
+  }
+]
