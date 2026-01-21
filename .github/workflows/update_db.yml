@@ -38,7 +38,12 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Préparation locale
+          # 1. Nettoyage des fichiers générés par npm pour éviter l'erreur "unstaged changes"
+          # On ne veut garder que products_db.json
+          git checkout -- package.json
+          rm -rf node_modules package-lock.json
+          
+          # 2. Préparation locale du fichier de données
           git add products_db.json
           
           if git diff --cached --quiet; then
@@ -48,14 +53,13 @@ jobs:
 
           git commit -m "Auto-update: Mise à jour du catalogue produits"
           
-          # Boucle de retry pour gérer les conflits de push simultanés
+          # 3. Boucle de retry pour gérer les conflits de push
           success=false
           for i in {1..5}; do
             echo "Tentative de push $i/5..."
             
-            # On pull les dernières modifs avec rebase
+            # On pull avec rebase. Comme on a nettoyé npm, il n'y a plus de conflit local
             if git pull --rebase origin main --allow-unrelated-histories; then
-              # Si le pull a marché, on tente le push
               if git push origin main; then
                 echo "✅ Mise à jour réussie !"
                 success=true
