@@ -7,8 +7,13 @@ const axios = require('axios');
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || ""; 
 const GOOGLE_SEARCH_CX = process.env.GOOGLE_SEARCH_CX || ""; 
 
-// NOUVELLE URL CORRIGÉE (le fichier a été déplacé dans 'definitions')
-const ZIGBEE_SOURCE = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/definitions/index.js";
+/**
+ * URL SOURCE CORRIGÉE
+ * Le fichier index.js de Zigbee2MQTT est désormais situé à la racine du dossier definitions.
+ */
+const ZIGBEE_SOURCE = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/devices/index.ts";
+// Fallback au cas où le projet bascule totalement sur une nouvelle structure
+const ZIGBEE_SOURCE_ALT = "https://raw.githubusercontent.com/Koenkk/zigbee-herdsman-converters/master/src/index.ts";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -42,14 +47,29 @@ function detectCategory(desc = "") {
 async function run() {
   console.log("🚀 Téléchargement du catalogue Zigbee2MQTT...");
   
+  let content = "";
   try {
-    // On ajoute un User-Agent pour éviter d'être bloqué par GitHub
+    // Essai de la source principale
     const response = await axios.get(ZIGBEE_SOURCE, {
       headers: { 'User-Agent': 'Mozilla/5.0' }
     });
-    const content = response.data;
+    content = response.data;
+  } catch (error) {
+    console.log("⚠️ Première URL échouée, tentative sur l'URL alternative...");
+    try {
+      const responseAlt = await axios.get(ZIGBEE_SOURCE_ALT, {
+        headers: { 'User-Agent': 'Mozilla/5.0' }
+      });
+      content = responseAlt.data;
+    } catch (errAlt) {
+      console.error("❌ Erreur lors de l'agrégation : Impossible de trouver le fichier source (404).");
+      process.exit(1);
+    }
+  }
 
+  try {
     // Regex améliorée pour capturer les produits même avec des espaces ou des guillemets différents
+    // Capture vendor, model et description
     const regex = /vendor:\s*['"]([^'"]+)['"],\s*model:\s*['"]([^'"]+)['"],\s*description:\s*['"]([^'"]+)['"]/g;
     let match;
     const rawProducts = [];
