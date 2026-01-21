@@ -38,16 +38,21 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # On s'assure d'être bien synchronisé, même si les historiques divergent au début
-          git pull origin main --rebase --allow-unrelated-histories
-          
+          # 1. On prépare le changement localement
           git add products_db.json
           
-          # On vérifie s'il y a des changements avant de commit
+          # 2. On vérifie s'il y a des changements avant de continuer
           if git diff --cached --quiet; then
             echo "Aucun changement détecté"
-          else
-            git commit -m "Auto-update: Mise à jour du catalogue produits"
-            # On utilise -u pour lier la branche et s'assurer que le push passe
-            git push origin main
+            exit 0
           fi
+
+          # 3. On commit localement
+          git commit -m "Auto-update: Mise à jour du catalogue produits"
+          
+          # 4. Stratégie de synchronisation agressive juste avant le push
+          # On récupère les changements distants et on place notre commit par-dessus
+          git pull --rebase origin main --allow-unrelated-histories
+          
+          # 5. On pousse enfin vers le dépôt distant
+          git push origin main
