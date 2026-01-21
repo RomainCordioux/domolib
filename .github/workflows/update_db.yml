@@ -1,1 +1,36 @@
+name: Mise à jour catalogue Domolib
 
+on:
+  schedule:
+    # S'exécute tous les lundis à 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Permet de le lancer manuellement pour tester
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Installation Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Installation des dépendances
+        run: npm install axios
+
+      - name: Exécution du script d'agrégation
+        run: node aggregate.js
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
+
+      - name: Commit et Push des changements
+        run: |
+          git config --global user.name 'Domolib Bot'
+          git config --global user.email 'bot@domolib.com'
+          git add products_db.json
+          git commit -m "Auto-update: Mise à jour du catalogue produits" || echo "Pas de changement"
+          git push
