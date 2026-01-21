@@ -1,52 +1,257 @@
 [
   {
-    "id": "zig-LED1545G12",
-    "nom": "TRADFRI LED bulb",
-    "marque": "IKEA",
-    "categorie": "Éclairage",
-    "protocoles": [
-      "Zigbee"
-    ],
-    "ecosystemes": [
-      "Zigbee2MQTT"
-    ],
-    "alimentation": "Secteur",
-    "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.2",
-    "prix": "27.51€"
-  },
-  {
-    "id": "zig-SNZB-02",
-    "nom": "Temperature sensor",
-    "marque": "Sonoff",
+    "id": "zig-TS0204-612",
+    "nom": "Gas sensor",
+    "marque": "Tuya",
     "categorie": "Sécurité",
     "protocoles": [
       "Zigbee"
     ],
     "ecosystemes": [
-      "Zigbee2MQTT"
+      "Zigbee2MQTT",
+      "Home Assistant"
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.2",
-    "prix": "18.79€"
+    "note": "4.3",
+    "prix": "15.86€"
   },
   {
-    "id": "mat-123",
-    "nom": "Smart Plug Mini",
-    "marque": "TP-Link",
-    "categorie": "Accessoires",
+    "id": "zig-TSL-SEN-GAS-560",
+    "nom": "PIR sensor",
+    "marque": "Tuya",
+    "categorie": "Sécurité",
     "protocoles": [
-      "Matter",
-      "Thread"
+      "Zigbee"
     ],
     "ecosystemes": [
-      "Apple Home",
-      "Google Home"
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.9",
+    "prix": "37.48€"
+  },
+  {
+    "id": "zig-TS0205-710",
+    "nom": "Smoke sensor",
+    "marque": "Tuya",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.9",
+    "prix": "41.45€"
+  },
+  {
+    "id": "zig-TSL-SEN-SMOKE-144",
+    "nom": "Socket",
+    "marque": "Dongguan Daying Electornics Technology",
+    "categorie": "Accessoires",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.6",
+    "prix": "45.81€"
+  },
+  {
+    "id": "zig-TS0218-735",
+    "nom": "Button",
+    "marque": "Tuya",
+    "categorie": "Accessoires",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.7",
+    "prix": "29.69€"
+  },
+  {
+    "id": "zig-ZC-W1-315",
+    "nom": "Temperature & humidity sensor",
+    "marque": "iHseno",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.6",
+    "prix": "41.61€"
+  },
+  {
+    "id": "zig-TS0203-307",
+    "nom": "Door/window sensor",
+    "marque": "Tuya",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
     "note": "4.4",
-    "prix": "43.86€"
+    "prix": "29.79€"
+  },
+  {
+    "id": "zig-TS0203-389",
+    "nom": "Ultrasonic water meter valve",
+    "marque": "Tuya",
+    "categorie": "Chauffage",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.5",
+    "prix": "40.50€"
+  },
+  {
+    "id": "zig-TS0601_water_meter-161",
+    "nom": "Ultrasonic water meter",
+    "marque": "Tuya",
+    "categorie": "Accessoires",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.4",
+    "prix": "16.56€"
+  },
+  {
+    "id": "zig-ZN2S-RS02E-842",
+    "nom": "Two gang switch with colored backlight modes",
+    "marque": "Tuya",
+    "categorie": "Éclairage",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.4",
+    "prix": "15.17€"
+  },
+  {
+    "id": "zig-TS0601_3gang_rkbxtclc-892",
+    "nom": "Three gang smart switch with colored backlight modes",
+    "marque": "Tuya",
+    "categorie": "Éclairage",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.6",
+    "prix": "34.70€"
+  },
+  {
+    "id": "zig-TS0601_4gang_7ytnacie-198",
+    "nom": "Four gang smart switch with colored backlight modes",
+    "marque": "Tuya",
+    "categorie": "Éclairage",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.6",
+    "prix": "19.94€"
+  },
+  {
+    "id": "zig-TS0203_1-556",
+    "nom": "Door sensor with scene switch",
+    "marque": "Tuya",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.6",
+    "prix": "43.95€"
+  },
+  {
+    "id": "zig-C3007-958",
+    "nom": "Pressure pad sensor",
+    "marque": "Tuya",
+    "categorie": "Sécurité",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.3",
+    "prix": "48.73€"
+  },
+  {
+    "id": "zig-LKWSZ211-414",
+    "nom": "Scene remote with 2 keys",
+    "marque": "Linkoze",
+    "categorie": "Accessoires",
+    "protocoles": [
+      "Zigbee"
+    ],
+    "ecosystemes": [
+      "Zigbee2MQTT",
+      "Home Assistant"
+    ],
+    "alimentation": "Secteur",
+    "image": "https://via.placeholder.com/300?text=Erreur+API",
+    "note": "4.9",
+    "prix": "44.57€"
   }
 ]
