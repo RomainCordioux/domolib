@@ -1,6 +1,6 @@
 [
   {
-    "id": "zig-TS0204-612",
+    "id": "zig-TS0204-152",
     "nom": "Gas sensor",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -13,11 +13,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.3",
-    "prix": "15.86€"
+    "note": "4.9",
+    "prix": "24.28€"
   },
   {
-    "id": "zig-TSL-SEN-GAS-560",
+    "id": "zig-TSL-SEN-GAS-175",
     "nom": "PIR sensor",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -31,10 +31,10 @@
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
     "note": "4.9",
-    "prix": "37.48€"
+    "prix": "27.91€"
   },
   {
-    "id": "zig-TS0205-710",
+    "id": "zig-TS0205-755",
     "nom": "Smoke sensor",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -47,11 +47,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.9",
-    "prix": "41.45€"
+    "note": "4.2",
+    "prix": "35.84€"
   },
   {
-    "id": "zig-TSL-SEN-SMOKE-144",
+    "id": "zig-TSL-SEN-SMOKE-501",
     "nom": "Socket",
     "marque": "Dongguan Daying Electornics Technology",
     "categorie": "Accessoires",
@@ -64,11 +64,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.6",
-    "prix": "45.81€"
+    "note": "4.9",
+    "prix": "22.47€"
   },
   {
-    "id": "zig-TS0218-735",
+    "id": "zig-TS0218-902",
     "nom": "Button",
     "marque": "Tuya",
     "categorie": "Accessoires",
@@ -81,11 +81,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.7",
-    "prix": "29.69€"
+    "note": "4.8",
+    "prix": "39.02€"
   },
   {
-    "id": "zig-ZC-W1-315",
+    "id": "zig-ZC-W1-290",
     "nom": "Temperature & humidity sensor",
     "marque": "iHseno",
     "categorie": "Sécurité",
@@ -98,11 +98,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.6",
-    "prix": "41.61€"
+    "note": "4.3",
+    "prix": "35.99€"
   },
   {
-    "id": "zig-TS0203-307",
+    "id": "zig-TS0203-663",
     "nom": "Door/window sensor",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -115,11 +115,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.4",
-    "prix": "29.79€"
+    "note": "4.9",
+    "prix": "22.24€"
   },
   {
-    "id": "zig-TS0203-389",
+    "id": "zig-TS0203-560",
     "nom": "Ultrasonic water meter valve",
     "marque": "Tuya",
     "categorie": "Chauffage",
@@ -132,11 +132,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.5",
-    "prix": "40.50€"
+    "note": "5.0",
+    "prix": "32.97€"
   },
   {
-    "id": "zig-TS0601_water_meter-161",
+    "id": "zig-TS0601_water_meter-901",
     "nom": "Ultrasonic water meter",
     "marque": "Tuya",
     "categorie": "Accessoires",
@@ -149,11 +149,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.4",
-    "prix": "16.56€"
+    "note": "4.5",
+    "prix": "25.58€"
   },
   {
-    "id": "zig-ZN2S-RS02E-842",
+    "id": "zig-ZN2S-RS02E-774",
     "nom": "Two gang switch with colored backlight modes",
     "marque": "Tuya",
     "categorie": "Éclairage",
@@ -167,10 +167,10 @@
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
     "note": "4.4",
-    "prix": "15.17€"
+    "prix": "47.10€"
   },
   {
-    "id": "zig-TS0601_3gang_rkbxtclc-892",
+    "id": "zig-TS0601_3gang_rkbxtclc-919",
     "nom": "Three gang smart switch with colored backlight modes",
     "marque": "Tuya",
     "categorie": "Éclairage",
@@ -184,10 +184,10 @@
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
     "note": "4.6",
-    "prix": "34.70€"
+    "prix": "22.94€"
   },
   {
-    "id": "zig-TS0601_4gang_7ytnacie-198",
+    "id": "zig-TS0601_4gang_7ytnacie-76",
     "nom": "Four gang smart switch with colored backlight modes",
     "marque": "Tuya",
     "categorie": "Éclairage",
@@ -200,11 +200,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.6",
-    "prix": "19.94€"
+    "note": "4.7",
+    "prix": "43.87€"
   },
   {
-    "id": "zig-TS0203_1-556",
+    "id": "zig-TS0203_1-495",
     "nom": "Door sensor with scene switch",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -217,11 +217,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.6",
-    "prix": "43.95€"
+    "note": "4.9",
+    "prix": "21.20€"
   },
   {
-    "id": "zig-C3007-958",
+    "id": "zig-C3007-15",
     "nom": "Pressure pad sensor",
     "marque": "Tuya",
     "categorie": "Sécurité",
@@ -234,11 +234,11 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.3",
-    "prix": "48.73€"
+    "note": "4.6",
+    "prix": "18.88€"
   },
   {
-    "id": "zig-LKWSZ211-414",
+    "id": "zig-LKWSZ211-714",
     "nom": "Scene remote with 2 keys",
     "marque": "Linkoze",
     "categorie": "Accessoires",
@@ -251,7 +251,7 @@
     ],
     "alimentation": "Secteur",
     "image": "https://via.placeholder.com/300?text=Erreur+API",
-    "note": "4.9",
-    "prix": "44.57€"
+    "note": "4.5",
+    "prix": "49.11€"
   }
 ]
